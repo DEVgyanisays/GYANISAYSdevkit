@@ -1,0 +1,252 @@
+{
+  "_meta": {
+    "kit": "0.1",
+    "matches": "Prototype/GYS_Coach_Platform_Rig_v0.3.html",
+    "date": "2026-10-16",
+    "purpose": "Synthetic starting data only: reference lists and placeholder settings. No people, no organisations, no contact details, no money figures.",
+    "loads_into": "schema.sql tables named in each section's _table key",
+    "settings_note": "Non-money settings carry the rule as agreed in the rig so the server has a working default; every value is changed in G4 with a reason. Every money setting is null until Finance admin sets it. Settings marked open are null."
+  },
+
+  "roles": {
+    "_table": "roles",
+    "rows": [
+      { "role": "admin",            "label": "Admin",                                  "may_open": "Everything except money: G0, G1 (no slab), G2, G3, G4 (non-money groups), G5, G6, G8, G9, G10" },
+      { "role": "finance_admin",    "label": "Finance admin",                          "may_open": "Money and the roster: G1 slab, G4 money group, G6 tier rates, G7; read G0, G3, G5, G8, G9; own entries in the activity log" },
+      { "role": "faculty",          "label": "Faculty",                                "may_open": "Their own batches, module versions they own, marking, Question Bank proposals (G2 faculty view)" },
+      { "role": "mentor",           "label": "Mentor",                                 "may_open": "Their own mentees only (G2 mentor view)" },
+      { "role": "coach_ours",       "label": "Coach — ours",                           "may_open": "Their own work: S1–S4, C1–C12" },
+      { "role": "coach_org",        "label": "Coach — appointed by an organisation",   "may_open": "Their own work, for the appointing organisation's people only: S1–S4, C1–C12. Access ends when unassigned, when the engagement closes, or when they leave" },
+      { "role": "aarambh_reviewer", "label": "Aarambh reviewer",                       "may_open": "Validation, leads and audit (A1–A3) only. Never G or C screens" }
+    ]
+  },
+
+  "languages": {
+    "_table": "languages",
+    "rows": [
+      { "code": "en", "name": "English",   "sort_order": 1 },
+      { "code": "hi", "name": "Hindi",     "sort_order": 2 },
+      { "code": "pa", "name": "Punjabi",   "sort_order": 3 },
+      { "code": "gu", "name": "Gujarati",  "sort_order": 4 },
+      { "code": "mr", "name": "Marathi",   "sort_order": 5 },
+      { "code": "bn", "name": "Bengali",   "sort_order": 6 },
+      { "code": "kn", "name": "Kannada",   "sort_order": 7 },
+      { "code": "ta", "name": "Tamil",     "sort_order": 8 },
+      { "code": "te", "name": "Telugu",    "sort_order": 9 },
+      { "code": "ml", "name": "Malayalam", "sort_order": 10 },
+      { "code": "or", "name": "Odia",      "sort_order": 11 }
+    ]
+  },
+
+  "programmes": {
+    "_table": "programmes",
+    "rows": [
+      { "code": "core",   "name": "Core programme" },
+      { "code": "track",  "name": "Role track" },
+      { "code": "adv",    "name": "Advanced" },
+      { "code": "org",    "name": "Organisation update" },
+      { "code": "induct", "name": "Faculty induction" }
+    ]
+  },
+
+  "modules": {
+    "_table": "modules",
+    "_note": "Titles from the rig. Owner, version history, outcomes and material are entered by faculty in G2 (module_versions, module_version_items). Organisation-update modules are created per organisation and are not seeded.",
+    "rows": [
+      { "programme_code": "core",   "number": "1",  "title": "How the assessment works",               "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "core",   "number": "2",  "title": "Reading the dossier",                    "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "core",   "number": "3",  "title": "The SETU model",                         "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "core",   "number": "4",  "title": "Running a debrief",                      "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "core",   "number": "5",  "title": "Using SETU · do's and don'ts",           "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "track",  "number": "L1", "title": "Students track",                         "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "track",  "number": "L2", "title": "Executives track",                       "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "track",  "number": "L3", "title": "Mid-management track",                   "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "track",  "number": "L4", "title": "Senior track",                           "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "adv",    "number": "A",  "title": "Paradox · Team report · JD Sculptor",     "current_version": "v0.1", "status": "draft", "owner_label": "Gyani Says" },
+      { "programme_code": "induct", "number": "F",  "title": "Faculty induction",                      "current_version": "v1.0", "status": "draft", "owner_label": "Gyani Says" }
+    ]
+  },
+
+  "role_track_defs": {
+    "_table": "role_track_defs",
+    "_note": "Training length (days) is set by admin; null until agreed.",
+    "rows": [
+      { "track": "student",        "code": "L1", "title": "Students",        "days": null },
+      { "track": "executive",      "code": "L2", "title": "Executives",      "days": null },
+      { "track": "mid_management", "code": "L3", "title": "Mid-management",  "days": null },
+      { "track": "senior",         "code": "L4", "title": "Senior",          "days": null }
+    ]
+  },
+
+  "rank_defs": {
+    "_table": "rank_defs",
+    "rows": [
+      { "rank": "certified", "label": "Certified Coach", "how_earned": "Pass the exam, sign the Code, reach Active", "adds": "Debriefs at your level", "sort_order": 1 },
+      { "rank": "senior",    "label": "Senior Coach",    "how_earned": "The Advanced Programme · logged hours · observed sessions · panel review", "adds": "Multi-session coaching (the key and coaching sessions) and Paradox and Team reports", "sort_order": 2 },
+      { "rank": "lead",      "label": "Lead Coach",      "how_earned": "Further hours · observation · panel review", "adds": "Group and team coaching · senior-leader work · may be made mentor or faculty by admin", "sort_order": 3 }
+    ]
+  },
+
+  "exam_part_defs": {
+    "_table": "exam_part_defs",
+    "_note": "Weights live in the setting exam_weights_pct.",
+    "rows": [
+      { "part": "written",           "title": "Written",           "sort_order": 1 },
+      { "part": "dossier_practical", "title": "Dossier practical", "sort_order": 2, "description": "Two halves marked as one part: an unaided read and plan, then against the Prep guide" },
+      { "part": "observed_debrief",  "title": "Observed debrief",  "sort_order": 3, "description": "Two markers; a third only on disagreement" },
+      { "part": "oral_viva",         "title": "Oral viva",         "sort_order": 4 }
+    ]
+  },
+
+  "upgrade_tiers": {
+    "_table": "upgrade_tiers",
+    "_note": "What each tier requires the coach to deliver. Prices never live in SETU; tier rates billed to Aarambh are Finance-admin-only rows in tier_rates.",
+    "rows": [
+      { "tier_key": "standard", "label": "Standard", "delivers": "The debrief as sold",                                        "availability": "included",           "qualifies_rule": null, "effective_from": "2026-10-16" },
+      { "tier_key": "plus",     "label": "Plus",     "delivers": "A longer debrief and a written follow-up",                    "availability": "upgrade_at_booking", "qualifies_rule": null, "effective_from": "2026-10-16" },
+      { "tier_key": "premium",  "label": "Premium",  "delivers": "Plus, with a senior coach and a 30-day check-in",            "availability": "upgrade_at_booking", "qualifies_rule": null, "effective_from": "2026-10-16" }
+    ]
+  },
+
+  "coaching_packs": {
+    "_table": "coaching_packs",
+    "_note": "Sizes only. Prices are the Finance-admin setting coaching_pack_prices.",
+    "rows": [
+      { "sessions": 3, "active": true },
+      { "sessions": 5, "active": true }
+    ]
+  },
+
+  "undertaking_versions": {
+    "_table": "undertaking_versions",
+    "_note": "PLACEHOLDER record. The six parts' wording is published by Gyani Says through G10 publishUndertakingVersion; replace body before go-live.",
+    "rows": [
+      {
+        "version": "v1.0",
+        "published_on": "2026-10-16",
+        "owner_label": "Gyani Says",
+        "is_current": true,
+        "body": {
+          "parts": [
+            { "n": 1, "topic": "Seeing a reading only for assigned work",          "text": "PLACEHOLDER" },
+            { "n": 2, "topic": "Never copying, downloading or forwarding",         "text": "PLACEHOLDER" },
+            { "n": 3, "topic": "Never discussing a reading with anyone else",      "text": "PLACEHOLDER" },
+            { "n": 4, "topic": "When access ends",                                 "text": "PLACEHOLDER" },
+            { "n": 5, "topic": "Reporting a lost device or wrong disclosure",      "text": "PLACEHOLDER" },
+            { "n": 6, "topic": "Breach is misconduct under the Code of Ethics",    "text": "PLACEHOLDER" }
+          ]
+        }
+      }
+    ]
+  },
+
+  "enums": {
+    "_note": "Closed sets the API validates against. Each mirrors an ENUM in schema.sql.",
+    "debrief_status": [
+      { "value": "unassigned",   "label": "Waiting for a coach", "terminal": false },
+      { "value": "assigned",     "label": "Assigned",            "terminal": false },
+      { "value": "prep",         "label": "Prep done",           "terminal": false },
+      { "value": "debriefed",    "label": "Debrief done",        "terminal": false },
+      { "value": "after",        "label": "After-debrief complete", "terminal": false },
+      { "value": "sentback",     "label": "Sent back",           "terminal": false },
+      { "value": "validated",    "label": "Validated",           "terminal": false },
+      { "value": "closed",       "label": "Closed",              "terminal": true },
+      { "value": "cancel_early", "label": "Cancelled early",     "terminal": true },
+      { "value": "cancel_late",  "label": "Cancelled late",      "terminal": true },
+      { "value": "noshow",       "label": "Didn't join",         "terminal": true }
+    ],
+    "client_type": [
+      { "value": "student",        "label": "Student",        "aarambh": "ST" },
+      { "value": "executive",      "label": "Executive",      "aarambh": "YE" },
+      { "value": "mid_management", "label": "Mid-management", "aarambh": "MM" },
+      { "value": "senior",         "label": "Senior",         "aarambh": "LD" },
+      { "value": "cant_say",       "label": "Can't say",      "aarambh": "NS", "reads_as": "mid_management" }
+    ],
+    "integrity": [
+      { "value": "reliable", "label": "Reliable", "aarambh": "reliable" },
+      { "value": "caution",  "label": "Caution",  "aarambh": "needs_clarification" }
+    ],
+    "commitment_band": [
+      { "value": "u5",    "label": "Under 5 hrs a week" },
+      { "value": "5_10",  "label": "5–10 hrs a week" },
+      { "value": "10_20", "label": "10–20 hrs a week" },
+      { "value": "20p",   "label": "20+ hrs a week" }
+    ],
+    "card_speciality": [
+      { "value": "first_time_managers",   "label": "First-time managers" },
+      { "value": "career_change",         "label": "Career change" },
+      { "value": "students_early_career", "label": "Students and early career" },
+      { "value": "senior_leaders",        "label": "Senior leaders" },
+      { "value": "returning_to_work",     "label": "Returning to work" },
+      { "value": "high_pressure_roles",   "label": "High-pressure roles" },
+      { "value": "team_leads",            "label": "Team leads" },
+      { "value": "founders",              "label": "Founders" }
+    ]
+  },
+
+  "settings": {
+    "_table": "settings",
+    "_note": "effective_from for every row = go-live. owner_role decides who may change it. Money rows (value_type money) stay null and are left out of every non-Finance response.",
+    "rows": [
+      { "setting_key": "assign_list_order",            "group_key": "assigning",           "label": "Order of the suggested list",     "value_type": "list",    "value_json": ["same_coach","primary_language","most_room","rating"], "owner_role": "admin" },
+      { "setting_key": "assign_within_hours",          "group_key": "assigning",           "label": "Assign within (hours)",           "value_type": "int",     "value_int": 24,   "owner_role": "admin" },
+      { "setting_key": "late_drop_list_days",          "group_key": "assigning",           "label": "Late-drop list penalty (days)",   "value_type": "int",     "value_int": 30,   "owner_role": "admin" },
+
+      { "setting_key": "slot_length_min",              "group_key": "calendar_drops",      "label": "Slot length (minutes)",           "value_type": "int",     "value_int": 45,   "owner_role": "admin" },
+      { "setting_key": "slot_gap_min",                 "group_key": "calendar_drops",      "label": "Gap after each slot (minutes)",   "value_type": "int",     "value_int": 15,   "owner_role": "admin" },
+      { "setting_key": "no_booking_within_hours",      "group_key": "calendar_drops",      "label": "No bookings within (hours)",      "value_type": "int",     "value_int": 48,   "owner_role": "admin" },
+      { "setting_key": "late_drop_line_hours",         "group_key": "calendar_drops",      "label": "Late-drop line (hours)",          "value_type": "int",     "value_int": 48,   "owner_role": "admin" },
+      { "setting_key": "late_drop_flag_per_month",     "group_key": "calendar_drops",      "label": "Flag at (late drops a month)",    "value_type": "int",     "value_int": 2,    "owner_role": "admin" },
+      { "setting_key": "coach_lock_window_hours",      "group_key": "calendar_drops",      "label": "Coach lock window (hours)",       "value_type": "int",     "value_int": 72,   "owner_role": "admin" },
+      { "setting_key": "no_show_wait_min",             "group_key": "calendar_drops",      "label": "Wait before Didn't join (minutes)", "value_type": "int",   "value_int": 15,   "owner_role": "admin" },
+
+      { "setting_key": "slab_amounts",                 "group_key": "money_packs",         "label": "Slab amounts",                    "value_type": "money",   "amount_minor": null, "currency": null, "owner_role": "finance_admin" },
+      { "setting_key": "per_session_fee",              "group_key": "money_packs",         "label": "Per-session fee",                 "value_type": "money",   "amount_minor": null, "currency": null, "owner_role": "finance_admin" },
+      { "setting_key": "coaching_pack_prices",         "group_key": "money_packs",         "label": "Coaching pack prices",            "value_type": "money",   "amount_minor": null, "currency": null, "owner_role": "finance_admin" },
+      { "setting_key": "session_fees",                 "group_key": "money_packs",         "label": "Session fees (debrief · one to one · group)", "value_type": "money", "amount_minor": null, "currency": null, "owner_role": "finance_admin" },
+      { "setting_key": "group_session_pays_once",      "group_key": "money_packs",         "label": "A group session pays once",       "value_type": "bool",    "value_int": 1,    "owner_role": "finance_admin" },
+      { "setting_key": "pack_vs_later_booking",        "group_key": "money_packs",         "label": "Pack price vs booking later",     "value_type": "text",    "value_text": null, "owner_role": "finance_admin", "open": true },
+      { "setting_key": "cancellation_shares",          "group_key": "money_packs",         "label": "Cancellation shares",             "value_type": "json",    "value_json": null, "owner_role": "finance_admin", "open": true },
+
+      { "setting_key": "core_modules_count",           "group_key": "training_credential", "label": "Core modules",                    "value_type": "int",     "value_int": 5,    "owner_role": "admin" },
+      { "setting_key": "exam_weights_pct",             "group_key": "training_credential", "label": "Exam weights (%)",                "value_type": "json",    "value_json": { "written": 20, "dossier_practical": 30, "observed_debrief": 35, "oral_viva": 15 }, "owner_role": "admin" },
+      { "setting_key": "exam_resits_allowed",          "group_key": "training_credential", "label": "Resits allowed (failed part only)", "value_type": "int",   "value_int": 2,    "owner_role": "admin" },
+      { "setting_key": "supervised_debriefs_required", "group_key": "training_credential", "label": "Supervised debriefs",             "value_type": "int",     "value_int": 6,    "owner_role": "admin" },
+      { "setting_key": "mentor_hours_required",        "group_key": "training_credential", "label": "Mentor hours",                    "value_type": "int",     "value_int": 3,    "owner_role": "admin" },
+      { "setting_key": "provisional_window_months",    "group_key": "training_credential", "label": "Provisional window (months)",     "value_type": "int",     "value_int": 6,    "owner_role": "admin" },
+      { "setting_key": "provisional_extension_months", "group_key": "training_credential", "label": "Extension, once (months)",        "value_type": "int",     "value_int": 2,    "owner_role": "admin" },
+      { "setting_key": "current_code_version",         "group_key": "training_credential", "label": "Current Code of Ethics",          "value_type": "text",    "value_text": null, "owner_role": "admin", "_note": "set to the published code_versions row at go-live" },
+      { "setting_key": "annual_attestation_required",  "group_key": "training_credential", "label": "Annual attestation",              "value_type": "bool",    "value_int": 1,    "owner_role": "admin" },
+      { "setting_key": "mentor_mentee_cap",            "group_key": "training_credential", "label": "Mentees per mentor",              "value_type": "int",     "value_int": 6,    "owner_role": "admin" },
+      { "setting_key": "faculty_seat_ratio",           "group_key": "training_credential", "label": "Seats per faculty member",        "value_type": "int",     "value_int": 6,    "owner_role": "admin" },
+      { "setting_key": "calibration_interval_days",    "group_key": "training_credential", "label": "Faculty calibration every (days)", "value_type": "int",    "value_int": 182,  "owner_role": "admin" },
+
+      { "setting_key": "consent_choices",              "group_key": "consent_recording",   "label": "Consent choices",                 "value_type": "list",    "value_json": ["record","transcript","none"], "owner_role": "admin" },
+      { "setting_key": "consent_chosen_at",            "group_key": "consent_recording",   "label": "Chosen at",                       "value_type": "text",    "value_text": "booking, confirmed at Settle", "owner_role": "admin" },
+      { "setting_key": "meeting_account",              "group_key": "consent_recording",   "label": "Meeting account",                 "value_type": "text",    "value_text": "Gyani Says-owned", "owner_role": "admin" },
+      { "setting_key": "transcript_tool_enabled",      "group_key": "consent_recording",   "label": "Transcript tool on",              "value_type": "bool",    "value_int": 0,    "owner_role": "admin", "_note": "off until a lawyer confirms" },
+      { "setting_key": "transcript_workspace",         "group_key": "consent_recording",   "label": "Transcript workspace",            "value_type": "text",    "value_text": null, "owner_role": "admin" },
+      { "setting_key": "transcript_retention",         "group_key": "consent_recording",   "label": "Transcript retention",            "value_type": "text",    "value_text": null, "owner_role": "admin", "open": true },
+      { "setting_key": "retention",                    "group_key": "consent_recording",   "label": "Retention",                       "value_type": "json",    "value_json": null, "owner_role": "admin", "open": true },
+      { "setting_key": "reading_audit_window_days",    "group_key": "consent_recording",   "label": "Reading cache kept after close (days)", "value_type": "int", "value_int": null, "owner_role": "admin", "open": true },
+
+      { "setting_key": "prep_guide_rules",             "group_key": "coaching_rules",      "label": "Prep guide rules",                "value_type": "list",    "value_json": ["probe_band","check_band","caret","median","caution","fit_lane"], "owner_role": "admin" },
+      { "setting_key": "product_rules",                "group_key": "coaching_rules",      "label": "Product rules (reading point → product)", "value_type": "json", "value_json": null, "owner_role": "admin" },
+      { "setting_key": "gap_shown_as",                 "group_key": "coaching_rules",      "label": "Gap shown as",                    "value_type": "enum",    "value_text": "bands_only", "owner_role": "admin" },
+      { "setting_key": "after_debrief_hours",          "group_key": "coaching_rules",      "label": "After-debrief due within (hours)", "value_type": "int",    "value_int": 24,   "owner_role": "admin" },
+      { "setting_key": "resubmit_hours",               "group_key": "coaching_rules",      "label": "Resubmit within (hours)",         "value_type": "int",     "value_int": 24,   "owner_role": "admin" },
+      { "setting_key": "max_recommendations",          "group_key": "coaching_rules",      "label": "Recommendations at most",         "value_type": "int",     "value_int": 3,    "owner_role": "admin" },
+      { "setting_key": "coaching_key_days",            "group_key": "coaching_rules",      "label": "Coaching key valid for (days)",   "value_type": "int",     "value_int": 60,   "owner_role": "admin" },
+      { "setting_key": "min_ratings_for_category_change", "group_key": "coaching_rules",   "label": "Ratings before a category change", "value_type": "int",    "value_int": 10,   "owner_role": "admin" },
+      { "setting_key": "public_rating_min_count",      "group_key": "coaching_rules",      "label": "Ratings before the rating is public", "value_type": "int", "value_int": 5,    "owner_role": "admin" },
+      { "setting_key": "category_d_enabled",           "group_key": "coaching_rules",      "label": "Category D on",                   "value_type": "bool",    "value_int": 0,    "owner_role": "admin" },
+      { "setting_key": "cant_say_default",             "group_key": "coaching_rules",      "label": "Can't say default rule",          "value_type": "enum",    "value_text": null, "owner_role": "admin", "open": true },
+
+      { "setting_key": "question_check_list",          "group_key": "wording_lists",       "label": "Question check",                  "value_type": "list",    "value_json": ["directive","closed_start","blaming_why","two_in_one","levels_or_numbers"], "owner_role": "admin" },
+      { "setting_key": "letter_check_list",            "group_key": "wording_lists",       "label": "Letter check",                    "value_type": "list",    "value_json": ["you should","you must","you need to","numbers","levels"], "owner_role": "admin" },
+
+      { "setting_key": "vetted_coach_rule",            "group_key": "organisations",       "label": "Vetted coaches — who may recommend directly", "value_type": "text", "value_text": null, "owner_role": "admin", "open": true },
+      { "setting_key": "client_share_consent_required","group_key": "organisations",       "label": "Client consent to share",         "value_type": "bool",    "value_int": 1,    "owner_role": "admin" }
+    ]
+  }
+}
