@@ -1,0 +1,13 @@
+export function check(v,message,status=422){if(!v){const e=Error(message);e.status=status;throw e;}}
+const str=(v,n,max=200,required=true)=>{check(typeof v==='string'||(!required&&v==null),n+' must be text');const s=(v||'').trim();check(s.length<=max&&(!required||s.length),n+' is required and must be under '+max+' characters');return s;};
+const pick=(v,n,values)=>{check(values.includes(v),'Invalid '+n);return v;};
+export function registration(b){
+ check(b && typeof b==='object' && !Array.isArray(b),'Invalid application');
+ if(b.spouse_joining==='Yes')check(b.spouse && typeof b.spouse==='object' && !Array.isArray(b.spouse),'Spouse details are required');
+ if(b.kids_joining==='Yes' && Array.isArray(b.kids))check(b.kids.every(k=>k && typeof k==='object' && !Array.isArray(k)),'Invalid child details');
+ const r={name:str(b.name,'Name',160),department:str(b.department,'Department',120),rsvp:pick(b.rsvp,'RSVP',['Yes','Maybe']),age_group:pick(b.age_group,'age group',['Under 40','40–50','50–60','60–70','70+']),gender:pick(b.gender||'','gender',['','Male','Female','Prefer not to say']),food_pref:pick(b.food_pref,'food',['Veg','Non-veg']),consumes_alcohol:pick(b.consumes_alcohol,'alcohol',['Yes','No']),ok_physical:pick(b.ok_physical||'','physical comfort',['','Yes','Some','No']),ok_strenuous:pick(b.ok_strenuous||'','activity comfort',['','Yes','No']),medical:str(b.medical,'Medical notes',2000,false),allergies:str(b.allergies,'Allergies',1000,false),special_care:str(b.special_care,'Special care',2000,false),spouse_joining:pick(b.spouse_joining||'No','spouse',['Yes','No']),kids_joining:pick(b.kids_joining||'No','children',['Yes','No'])};
+ check(b.consent===true,'Please confirm the privacy notice');r.consent_version='1';r.spouse=null;r.kids=[];
+ if(r.spouse_joining==='Yes'){const s=b.spouse||{};r.spouse={name:str(s.name,'Spouse name',160),age_group:pick(s.age_group,'spouse age',['Under 40','40–50','50–60','60–70','70+']),food_pref:pick(s.food_pref,'spouse food',['Veg','Non-veg']),consumes_alcohol:pick(s.consumes_alcohol,'spouse alcohol',['Yes','No']),medical:str(s.medical,'Spouse notes',2000,false)};}
+ if(r.kids_joining==='Yes'){check(Array.isArray(b.kids)&&b.kids.length>0&&b.kids.length<=4,'Add between 1 and 4 children');r.kids=b.kids.map(k=>{check(k.age!==''&&k.age!=null,'Child age is required');const age=Number(k.age);check(Number.isInteger(age)&&age>=0&&age<=25,'Child age must be 0–25');return {name:str(k.name,'Child name',120),age,age_band:age<5?'Under 5':age<=10?'5–10':age<=15?'11–15':'16+',food:pick(k.food,'child food',['Veg','Non-veg']),note:str(k.note,'Child notes',1000,false)};});}
+ return r;
+}

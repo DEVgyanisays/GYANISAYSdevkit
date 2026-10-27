@@ -1,0 +1,220 @@
+{
+  "activities": [
+    {
+      "name": "Zipline",
+      "type": "Battleground",
+      "stress": 3,
+      "profile": "Fit & fearless doctors; not for vertigo/heart flags",
+      "rules": "Cruise the longest zipline in NCR — ~1 min airborne. One rider at a time, harness checked by the veteran.",
+      "engage": "Teammates time each run and cheer; fastest clean launch scores.",
+      "success": "Completes the line solo, lands on target platform.",
+      "fail": "Bails before launch (no penalty — low-impact role instead).",
+      "warn": "Heights, harness. Not for severe BP/heart/vertigo. Veteran-supervised.",
+      "award": "Points to company + 'Sky Trooper' spot award"
+    },
+    {
+      "name": "Paintball",
+      "type": "Battleground",
+      "stress": 3,
+      "profile": "High-activity squad; protective gear mandatory",
+      "rules": "War-ravaged zone, team vs team. Hits count; eliminated players fall back to base.",
+      "engage": "Capture-the-flag format; last team standing wins the round.",
+      "success": "Team captures flag / most players standing.",
+      "fail": "All players eliminated.",
+      "warn": "Impact from pellets; mask ON at all times. Not for recent surgery.",
+      "award": "Company points + 'Sharpshooter Squad'"
+    },
+    {
+      "name": "Assault / Obstacle Course",
+      "type": "Olympics",
+      "stress": 3,
+      "profile": "High-activity squad; timed event",
+      "rules": "Timed run through the commando obstacle course. Clean completion only.",
+      "engage": "Relay — each member runs a leg; team's total time counts.",
+      "success": "Whole relay finishes under the benchmark time.",
+      "fail": "Skipped obstacles add time penalties.",
+      "warn": "Climbing, jumping, crawling. Knee/back caution. Veteran-paced.",
+      "award": "Fastest company trophy"
+    },
+    {
+      "name": "Firing Range",
+      "type": "Olympics",
+      "stress": 1,
+      "profile": "All ages — can be done seated; great for 60+",
+      "rules": "3 pellets per visitor, paintball guns at life-size targets. Best aggregate score.",
+      "engage": "Each member shoots; top 5 scores per company count.",
+      "success": "Hits scored on target rings.",
+      "fail": "— (everyone scores something).",
+      "warn": "Low stress. Ear comfort; follow the range officer.",
+      "award": "'Dead-Eye' individual + company points"
+    },
+    {
+      "name": "Grenade Range",
+      "type": "Olympics",
+      "stress": 2,
+      "profile": "Most people; light throwing",
+      "rules": "Throw grenade look-alikes into target zones. Distance + accuracy.",
+      "engage": "Three throws each; best throw counts to company tally.",
+      "success": "Lands in a scoring ring.",
+      "fail": "Out of bounds (no penalty).",
+      "warn": "Light shoulder effort. Shoulder-injury flag → sit out or judge.",
+      "award": "Company points"
+    },
+    {
+      "name": "Pagal Gymkhana",
+      "type": "Gamification",
+      "stress": 2,
+      "profile": "Everyone — the great leveller; couples welcome",
+      "rules": "Army-way fun: tug-of-war, thread-&-needle race, knot relay. Silly on purpose.",
+      "engage": "Whole company plays together; crowd noise is half the game.",
+      "success": "Wins the head-to-head rounds.",
+      "fail": "— (laughs guaranteed).",
+      "warn": "Light-to-moderate. Tug-of-war: mind grip/back.",
+      "award": "'Best Team Spirit' + company points"
+    },
+    {
+      "name": "Tug of War",
+      "type": "Battleground",
+      "stress": 2,
+      "profile": "Mixed teams; strength + coordination",
+      "rules": "Best of three pulls, company vs company bracket.",
+      "engage": "Bench cheers; captains set the order.",
+      "success": "Pulls the marker past the line twice.",
+      "fail": "Loses two pulls.",
+      "warn": "Sudden load on back/shoulders; gloves advised.",
+      "award": "Bracket winner points"
+    },
+    {
+      "name": "Sports Arena",
+      "type": "Olympics",
+      "stress": 2,
+      "profile": "Moderate; cricket / volleyball / football",
+      "rules": "Short-format matches on the arena pitches. Round-robin between companies.",
+      "engage": "Rolling subs so everyone bats/plays; spectators score.",
+      "success": "Wins the short match.",
+      "fail": "Loses on the clock.",
+      "warn": "Running, ball impact. Light option: umpire/scorer role.",
+      "award": "Company points"
+    }
+  ],
+  "awards": [
+    [
+      "Team",
+      "Champion Company",
+      "Overall winning colour team"
+    ],
+    [
+      "Team",
+      "Runners-up Company",
+      "Second place overall"
+    ],
+    [
+      "Team",
+      "Best Team Spirit",
+      "Loudest, most united company"
+    ],
+    [
+      "Team",
+      "Best War Cry",
+      "Best company chant / banner"
+    ],
+    [
+      "Individual",
+      "Best Participation",
+      "Joined the most stations"
+    ],
+    [
+      "Individual",
+      "Most Enthusiastic",
+      "Brought the energy everywhere"
+    ],
+    [
+      "Individual",
+      "Most Energetic",
+      "Never ran out of steam"
+    ],
+    [
+      "Individual",
+      "Best Dressed (military theme)",
+      "Sharpest costume on parade"
+    ],
+    [
+      "Individual",
+      "Never-Say-Die",
+      "Best sport / grit award"
+    ],
+    [
+      "Individual",
+      "Life of the Picnic",
+      "The one everyone remembers"
+    ],
+    [
+      "Couple",
+      "Most Energetic Couple",
+      "The pair that lit up the day"
+    ],
+    [
+      "Couple",
+      "Best Dressed Couple",
+      "Best-turned-out jodi"
+    ],
+    [
+      "Couple",
+      "Jodi No. 1",
+      "Best pair in couple games"
+    ],
+    [
+      "Age bracket",
+      "Star Performer · Under 40",
+      "Top of the youngest bracket"
+    ],
+    [
+      "Age bracket",
+      "Star Performer · 40–50",
+      "Top of the 40s"
+    ],
+    [
+      "Age bracket",
+      "Star Performer · 50–60",
+      "Top of the 50s"
+    ],
+    [
+      "Age bracket",
+      "Veteran Award · 60+",
+      "Our evergreen stars"
+    ],
+    [
+      "Kids",
+      "Little Champion",
+      "Star kid of the day"
+    ],
+    [
+      "Kids",
+      "Junior Cheerleader",
+      "Loudest little supporter"
+    ],
+    [
+      "Spot",
+      "Sharpshooter",
+      "Best at the firing range"
+    ],
+    [
+      "Spot",
+      "Best Dancer",
+      "Rain-dance / DJ floor"
+    ],
+    [
+      "Spot",
+      "Tambola Champion",
+      "Full house!"
+    ]
+  ],
+  "categories": [
+    "Team",
+    "Individual",
+    "Couple",
+    "Age bracket",
+    "Kids",
+    "Spot"
+  ]
+}

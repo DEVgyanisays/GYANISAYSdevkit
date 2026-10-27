@@ -1,0 +1,22 @@
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /
+
+# Let real files and directories (assets, images, api/, etc.) through untouched
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Everything else (client-side routes) falls back to the SPA shell
+RewriteRule . /index.html [L]
+
+# Sane caching for hashed assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule>

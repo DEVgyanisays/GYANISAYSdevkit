@@ -1,0 +1,27 @@
+# Server default placeholder page - not part of the site
+/html/
+
+# Composer dependencies (rebuild with: composer install)
+gyanisays-app/vendor/
+
+# Real config / secrets - never commit
+config/*.php
+!config/*.example.php
+.env
+.env.*
+!.env.example
+node_modules/
+data/
+*.ppk
+*.pem
+*.key
+.htpasswd
+
+# Logs
+*.log
+error_log
+
+# macOS / editor junk
+.DS_Store
+.vscode/
+.idea/

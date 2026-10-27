@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Gyani Says — Admin"
+AuthUserFile /var/www/config/.htpasswd_gys_admin
+Require valid-user

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gyani Says — Prospects</title>
+<style>
+  body { font-family: -apple-system, sans-serif; background: #f4f1ec; margin: 0; padding: 32px; color: #2A2530; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .sub { color: #5A5260; font-size: 14px; margin-bottom: 24px; }
+  .btn { display: inline-block; background: #812E3E; color: #fff; padding: 10px 20px; border-radius: 8px;
+         text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden;
+          box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+  th, td { text-align: left; padding: 10px 14px; font-size: 13px; border-bottom: 1px solid #eee; vertical-align: top; }
+  th { background: #2A2530; color: #fff; position: sticky; top: 0; }
+  tr:last-child td { border-bottom: none; }
+  .msg { max-width: 260px; white-space: pre-wrap; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 3px 8px;
+         border-radius: 999px; background: #F2E4E7; color: #812E3E; }
+  .count { font-size: 13px; color: #5A5260; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+  <h1>Gyani Says — Prospects</h1>
+  <p><a href="/admin/event/">Event dashboard &amp; bulk names</a> · <a href="/application/">Public application form</a></p>
+  <p class="sub">gyanisays.com · read-only view, newest first</p>
+  <a class="btn" href="export_csv.php">Download CSV</a>
+  <p class="count">{{COUNT}} total</p>
+  <table>
+    <tr>
+      <th>#</th><th>Received (IST)</th><th>Name</th><th>Contact</th><th>Lens</th>
+      <th>Interested in</th><th>Situation</th><th>Message</th><th>Mirror (lowest)</th><th>Email sent</th>
+    </tr>
+    {{ROWS}}
+  </table>
+</body>
+</html>
