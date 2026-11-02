@@ -1,0 +1,13 @@
+{
+  "name":"gyanisays-deployment",
+  "version":"1.0.0",
+  "private":true,
+  "engines":{"node":">=24"},
+  "scripts":{
+    "setup":"npm --prefix frontend ci && npm --prefix backend ci",
+    "build":"npm --prefix frontend run build",
+    "test":"npm --prefix backend test",
+    "preview":"npm --prefix backend run preview:event",
+    "start":"npm --prefix backend start"
+  }
+}

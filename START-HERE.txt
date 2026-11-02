@@ -1,0 +1,58 @@
+GYANI SAYS - COMPLETE NODE.JS PROJECT
+===================================
+
+Requirements: Node.js 24 or newer (includes npm).
+No PHP interpreter, PHP-FPM, Composer or PHPMailer is required.
+The browser frontend remains HTML/CSS/JavaScript; all backend code is Node.js.
+
+QUICK LOCAL PREVIEW
+1. Extract the ZIP into a folder.
+2. Open a terminal inside the extracted gyanisays-nodejs folder.
+3. Run: npm ci
+4. Run: npm run preview:event
+5. Open: http://127.0.0.1:3080/
+   Form: http://127.0.0.1:3080/application/
+   Admin: http://127.0.0.1:3080/admin/event/
+
+The terminal prints a temporary organiser username/password on each start.
+The preview starts with an empty database. Import your names in Bulk names.
+Preview mode supports event registration and admin features; the website's
+lead-contact database and email services require the production setup below.
+
+FULL PRODUCTION SETUP
+1. Run npm ci (or npm ci --omit=dev).
+2. Copy .env.example to .env and fill in MySQL, SMTP and admin credentials.
+3. Reuse the existing prospects table, or import database/schema.sql into a
+   new MySQL database. Do not overwrite an existing production database.
+4. Set GYS_PUBLIC_SITE_URL to your deployed HTTPS origin.
+5. Set GYS_EVENT_DB to a persistent SQLite file path, or retain the default
+   data/events.sqlite on persistent disk. Use a single Node application instance.
+6. Run npm start. Default local address: http://127.0.0.1:3000/
+7. Configure your HTTPS reverse proxy to forward all paths to Node.js.
+   See README.md for proxy trust, backups and deployment verification.
+
+Participants can open /application/ without login, directly or through a QR.
+Only organisers sign in to /admin/event/ using the credentials in .env.
+Localhost links/QRs work only on the same computer. Deploy before sharing.
+
+WHAT IS INCLUDED
+- Original website frontend with an application-form entry button.
+- Node.js lead API, MySQL support and SMTP notification integration.
+- Public application form, CSV name import and searchable name selection.
+- Protected admin charts, attendance/meal breakdowns, family details,
+  company assignments, activity catalog, awards, CSV export and QR sharing.
+- Source code, locked dependency versions, database schema and tests.
+
+WHAT IS NOT INCLUDED
+- Real credentials, .env, user submissions, imported names or demo databases.
+- node_modules, Git history and old Apache/PHP deployment files.
+  Dependencies are installed by npm ci; internet access is needed for installation.
+- A Node.js installer. Install Node.js 24+ separately on the recipient's machine.
+
+Some legacy API URLs end in .php to preserve compatibility with the original
+compiled frontend. These are Express routes, not PHP files or PHP execution.
+The original React source was not provided; its compiled frontend is included.
+
+VERIFY
+Run: npm test
+Live MySQL/SMTP and public-domain deployment require your own configuration.

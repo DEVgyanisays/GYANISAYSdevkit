@@ -1,0 +1,13 @@
+# Overlay: docker compose -f docker-compose.yml -f docker-compose.https.yml up -d --build
+# Requires nginx/certs/fullchain.pem and nginx/certs/privkey.pem for DOMAIN.
+services:
+  nginx:
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN to your public hostname}
+    volumes:
+      - ./nginx/empty.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/https.conf.template:/etc/nginx/templates/https.conf.template:ro
+      - ./nginx/certs:/etc/nginx/certs:ro

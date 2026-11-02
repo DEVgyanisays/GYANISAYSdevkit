@@ -1,0 +1,62 @@
+services:
+  database:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${GYS_DB_NAME:?Set GYS_DB_NAME}
+      MYSQL_USER: ${GYS_DB_USER:?Set GYS_DB_USER}
+      MYSQL_PASSWORD: ${GYS_DB_PASS:?Set GYS_DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD}
+      TZ: Asia/Kolkata
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/001-prospects.sql:ro
+    healthcheck:
+      test: [CMD-SHELL, 'mysqladmin ping -h localhost -u root --password="$$MYSQL_ROOT_PASSWORD" --silent']
+      interval: 10s
+      timeout: 5s
+      retries: 15
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      GYS_DB_HOST: database
+      GYS_DB_PORT: 3306
+      GYS_DB_NAME: ${GYS_DB_NAME}
+      GYS_DB_USER: ${GYS_DB_USER}
+      GYS_DB_PASS: ${GYS_DB_PASS}
+      GYS_SMTP_HOST: ${GYS_SMTP_HOST}
+      GYS_SMTP_PORT: ${GYS_SMTP_PORT:-587}
+      GYS_SMTP_SECURE: ${GYS_SMTP_SECURE:-tls}
+      GYS_SMTP_USER: ${GYS_SMTP_USER}
+      GYS_SMTP_PASS: ${GYS_SMTP_PASS}
+      GYS_SMTP_FROM: ${GYS_SMTP_FROM}
+      GYS_SMTP_FROM_NAME: ${GYS_SMTP_FROM_NAME:-GyaniSays}
+      GYS_MAIL_TO: ${GYS_MAIL_TO:-mandeep.sodhi@gyanisays.com}
+      GYS_ADMIN_USER: ${GYS_ADMIN_USER}
+      GYS_ADMIN_PASS: ${GYS_ADMIN_PASS}
+      GYS_PUBLIC_SITE_URL: ${GYS_PUBLIC_SITE_URL}
+      GYS_EVENT_DB: /app/backend/data/events.sqlite
+      TRUST_PROXY: "1"
+    volumes:
+      - event_data:/app/backend/data
+  nginx:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${APP_BIND:-127.0.0.1}:${APP_HTTP_PORT:-8080}:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+volumes:
+  mysql_data:
+  event_data:

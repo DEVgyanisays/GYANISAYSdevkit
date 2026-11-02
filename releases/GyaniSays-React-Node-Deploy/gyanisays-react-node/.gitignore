@@ -1,0 +1,10 @@
+node_modules/
+**/node_modules/
+.env
+**/.env
+backend/data/
+nginx/certs/
+*.log
+*.sqlite*
+*.pem
+*.key

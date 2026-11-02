@@ -1,0 +1,34 @@
+GYANI SAYS - SIMPLE TWO-FOLDER PROJECT
+
+frontend/  Original website, application form and admin UI
+backend/   Node.js server, dependencies, configuration, database schema and tests
+
+Keep both folders together. Do not move or run frontend separately.
+Requires Node.js 24 or newer.
+
+QUICK PREVIEW
+Open a terminal in backend and run:
+  npm ci
+  npm run preview:event
+
+Website: http://127.0.0.1:3080/
+Form: http://127.0.0.1:3080/application/
+Admin: http://127.0.0.1:3080/admin/event/
+Temporary admin credentials are printed in the terminal on startup.
+Keep the terminal running. Preview starts with an empty event database.
+
+PRODUCTION
+Copy backend/.env.example to backend/.env and configure MySQL, SMTP,
+GYS_ADMIN_USER, GYS_ADMIN_PASS and GYS_PUBLIC_SITE_URL.
+Reuse the existing MySQL table or import backend/database/schema.sql for a
+new database. Then run npm start from backend. Default port: 3000.
+Event SQLite data is created under backend/data/ unless GYS_EVENT_DB is set.
+Use persistent disk and back up the data. See README.md for deployment.
+Localhost links do not work on other people's phones; deploy for public sharing.
+
+Preview supports the original website and event form/admin. Website contact
+leads and SMTP emails require production configuration.
+No real passwords, databases, participant records or node_modules are included.
+Legacy .php URLs are handled by Node.js; no PHP runtime is needed.
+
+TEST: npm test (from backend)

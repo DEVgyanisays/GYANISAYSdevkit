@@ -1,0 +1,1 @@
+Read ../SETUP_STEPS.md for local setup and ../docs/DEPLOYMENT.md for hosting.
