@@ -1,2 +1,11 @@
 .DS_Store
 *.zip
+
+.env
+.env.*
+!.env.example
+node_modules/
+backend/logs/
+frontend/connection.js
+*.sqlite*
+

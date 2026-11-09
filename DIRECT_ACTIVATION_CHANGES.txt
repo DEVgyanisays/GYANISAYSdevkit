@@ -1,0 +1,5 @@
+Admin -> Applications -> Review -> Approve & activate coach. Admin-only, requires reason and explicit confirmation. Sets active in-house coach, tier (standard/plus/premium), category A-D, rank; copies languages and queues password invitation. Training/batch/exam/provisional steps are bypassed, not falsely recorded as completed. User sets own password; data undertaking still required. Future matching slots are necessary; online presence is not required. Tier is an admin classification, not a new payment-pricing or matching rule. Existing accounts are not silently promoted. Duplicate applications cannot activate twice.
+
+Deploy changed backend/src/db.mjs, applications.mjs and web/production.js, operations-ui.js; restart backend for additive SQLite tier migration. No data reset. Merge against your live version, especially if it has been changed to MySQL.
+
+Aarambh: merge aarambh-update/CoachingTab.jsx into frontend/src/features/candidate/components/CoachingTab.jsx and rebuild frontend. Waiting state no longer shows an endless spinner and automatic refresh is limited to eight checks. No live server deployment was performed.

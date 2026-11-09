@@ -83,7 +83,7 @@ CREATE TABLE languages (
 CREATE TABLE user_languages (
   user_id           BIGINT UNSIGNED NOT NULL,
   language_code     VARCHAR(10) NOT NULL,
-  proficiency       ENUM('primary','secondary') NOT NULL,
+  proficiency       ENUM('primary','secondary','other') NOT NULL,
   PRIMARY KEY (user_id, language_code),
   KEY idx_ul_lang (language_code, proficiency),
   CONSTRAINT fk_ul_user FOREIGN KEY (user_id) REFERENCES users(id),
@@ -210,7 +210,7 @@ CREATE TABLE applications (
 CREATE TABLE application_languages (
   application_id    BIGINT UNSIGNED NOT NULL,
   language_code     VARCHAR(10) NOT NULL,
-  proficiency       ENUM('primary','secondary') NOT NULL,
+  proficiency       ENUM('primary','secondary','other') NOT NULL,
   PRIMARY KEY (application_id, language_code),
   CONSTRAINT fk_al_app  FOREIGN KEY (application_id) REFERENCES applications(id),
   CONSTRAINT fk_al_lang FOREIGN KEY (language_code) REFERENCES languages(code)

@@ -319,7 +319,7 @@ function D(id){return S.debriefs.find(d=>d.id===id);}
 function band(){return BANDS.find(b=>b[0]===S.commit.band)||BANDS[2];}
 
 /* ---------------- rig render ---------------- */
-function go(code,focus){S.ui.screen=code;S.ui.focus=focus||null;S.ui.menu=false;S.ui.rigPanel=false;save();render();window.scrollTo(0,0);}
+function go(code,focus){if(!roleAllows(code)){toast('This screen is not part of your workspace.');return;}S.ui.screen=code;S.ui.focus=focus||null;S.ui.menu=false;S.ui.rigPanel=false;save();render();window.scrollTo(0,0);}
 // Changed after the pass: screen -> the date of the change. A reviewed screen shows "changed" until
 // it is looked at again. 29 Sep 2026: C5 shows the real Aarambh report and loads from the Aarambh rig.
 // 16 Oct 2026: C5 and C6 split the person's copy from the coach copy; the coach copy needs the undertaking.
@@ -328,6 +328,10 @@ const chgKey=c=>CHANGED_SINCE[c]?c+'@'+CHANGED_SINCE[c]:null;
 function dotState(c){const M=META[c];if(!M.built)return '';if(PARKED.includes(c))return 'parked';if(S.ui.reviewed[c])return ((CHANGED_IN_PASS.includes(c)&&!S.ui.ack[c])||(chgKey(c)&&!S.ui.ack[chgKey(c)]))?'changed':'reviewed';return 'built';}
 function markReviewed(c){if(dotState(c)==='changed'){S.ui.ack[c]=true;if(chgKey(c))S.ui.ack[chgKey(c)]=true;}else{S.ui.reviewed[c]=!S.ui.reviewed[c];S.ui.ack[c]=true;if(chgKey(c))S.ui.ack[chgKey(c)]=true;}save();render();}
 function render(){
+ if(!workspaceSession&&publicApplicationOpen){renderPublicApplication();return;}
+ if(!workspaceSession){renderLogin();return;}
+ if(!roleAllows(S.ui.screen))S.ui.screen=ROLE_PROFILES[workspaceSession.role].home;
+ if(!fullWorkspaceAccess()&&S.pres)S.pres.on=false;
  const cur=S.ui.screen,m=META[cur];
  let nav='';
  SCREENS.forEach(g=>{
@@ -359,7 +363,7 @@ function render(){
   </div>
   <div class="stage"><div class="screen-in">${m.built?screen(cur):later(cur)}</div></div>
  </main>`;
- renderDrawer();afterRender(cur);renderPres();
+ refreshPresentation(cur);applyWorkspaceAccess();renderDrawer();afterRender(cur);renderPres();renderGuideAssistant();
 }
 function stateSwitch(c){
  const sw=(label,key,opts)=>`<div class="seg"><span class="lbl">${label}</span>${opts.map(([v,t])=>`<button aria-pressed="${S[key]===v}" onclick="S['${key}']='${v}';save();render()">${t}</button>`).join('')}</div>`;
@@ -407,6 +411,7 @@ function appbar(active,kind){
 function wrap(active,inner,opts={}){return `<div class="app ${opts.present?'present':''}">${opts.practice?'<div class="practice-band">PRACTICE — synthetic report · not saved as client history</div>':''}${opts.kind==='web'?'<div class="mockband">MOCK · GYANI SAYS WEBSITE — GYANI SAYS BUILDS THE REAL PAGE</div>':''}${appbar(active,opts.kind)}<div class="page">${inner}</div></div>`;}
 function head(title,sub,right){return `<div class="pagehead"><div>${title}</div><div>${sub?`<p>${sub}</p>`:''}${right||''}</div></div>`;}
 function screen(c){
+ if(c==='T1'||c==='M1')return staffWorkspace(c);
  const f={W1,P1,S1,S2,S3,S4,C1,C2,C3,C4,C5,C6,C11,C12,G0,G1,G2,G3,G4,G5,G6,G7,G8,G9,G10};
  if(['C7','C8','C9','C10'].includes(c))return AFTER(c);
  return f[c]();
@@ -1603,7 +1608,7 @@ function C12(){
    G0–G10 · Gyani Says admin
    ===================================================================== */
 const adm=(active,inner)=>wrap(active,inner,{kind:'admin'});
-const fin=()=>S.admin.role==='finance';
+const fin=()=>fullWorkspaceAccess();
 const seatBar=(b)=>{const t=b.seatsP+b.seatsO,f=b.filledP+b.filledO;return `<div class="bar ${f>=t?'ok':'gold'}" style="margin:8px 0"><i style="width:${t?Math.round(f/t*100):0}%"></i></div><div class="row between small"><span><b>${f}</b> of ${t} seats</span><span class="muted">${b.seatsP?`${b.filledP}/${b.seatsP} in person · `:''}${b.seatsO?`${b.filledO}/${b.seatsO} online`:''}</span></div>`;};
 const stPill=x=>({running:'ok','nearly full':'gold',filling:'',empty:'stop',closed:''})[x]||'';
 
@@ -1856,18 +1861,21 @@ function nbSave(){const d=S.admin.nb;const vers={};S.modules.filter(m=>m.prog===
 
 /* ----- applications ----- */
 function appView(id){const a=S.apps.find(x=>x.id===id);
+ if(a.publicSubmission){reviewPublicApplication(id);return;}
  modal(`<h3>${esc(a.name)}</h3><div class="row"><span class="pill ${a.as==='trainer'?'maroon':''}">${a.as==='trainer'?'Trainer / mentor':'Coach'}</span><span class="pill">Came from: ${esc(a.source)}</span><span class="pill">${a.state}</span></div>
  <dl class="kv" style="margin-top:14px"><dt>City</dt><dd>${esc(a.city)}</dd><dt>Experience</dt><dd>${a.years} years${a.work?` · ${esc(a.work)}`:''}</dd><dt>Languages</dt><dd>${esc(a.langs)}</dd><dt>Wants</dt><dd>${esc(a.mode)} · ${esc(a.pref)}</dd>${a.tracks?`<dt>${a.as==='trainer'?'Could teach':'Tracks'}</dt><dd>${esc(a.tracks)}</dd>`:''}<dt>Can attend</dt><dd>${esc(a.days||'—')}</dd>${a.band?`<dt>Time</dt><dd>${esc(a.band)}</dd>`:''}<dt>CV</dt><dd>${a.cv?'Attached — read inside SETU':'Not attached'}</dd></dl>
  <div class="row" style="margin-top:14px">${['new','screened','interviewing'].map(s=>`<button class="opt" style="padding:7px 12px;font-size:15px;min-height:36px" aria-pressed="${a.state===s}" onclick="S.apps.find(x=>x.id==='${a.id}').state='${s}';save();appView('${a.id}');render()">${s}</button>`).join('')}</div>
  <div class="row" style="justify-content:flex-end;margin-top:14px"><button class="btn" onclick="closeModal()">Close</button>${a.state==='enrolled'?'':`<button class="btn" onclick="offerBatch('${a.id}')">Offer a batch</button><button class="btn pri" onclick="enrol('${a.id}')">Enrol</button>`}</div>`);}
 function fitBatches(a){const prog=a.as==='trainer'?'induct':'core';return S.batches.filter(b=>b.prog===prog&&!['closed','running'].includes(batchState(b)));}
 function offerBatch(id){const a=S.apps.find(x=>x.id===id);const bs=fitBatches(a);
+ if(a.publicSubmission&&!['accepted','offered','waitlisted'].includes(a.state)){toast('Accept this application before offering a batch.');return;}
  modal(`<h3>Offer ${esc(a.name)} a batch</h3><p class="muted" style="margin-top:0">They asked for: <b>${esc(a.mode)} · ${esc(a.pref)}</b>. Batches that match are marked.</p>
  ${bs.map(b=>{const match=(a.mode==='Online'&&b.seatsO)||(a.mode==='In person'&&b.seatsP&&b.city===a.city)||(a.mode==='Either'&&(b.seatsO||b.city===a.city));
   return `<div class="row between" style="padding:10px 0;border-bottom:1px solid var(--line)"><span><b>${esc(b.name)}</b> · ${fmtDate(b.start)} · ${esc(modeLabel(b))}<br><span class="muted small">${b.seatsP-b.filledP} in person, ${b.seatsO-b.filledO} online left · ${batchState(b)}</span></span><span class="row">${match?'<span class="pill ok">matches</span>':'<span class="pill">not what they asked</span>'}<button class="btn sm pri" onclick="doOffer('${a.id}','${b.id}')">Offer</button></span></div>`;}).join('')||'<p>No open batch for this programme. Create one first.</p>'}
  <div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" onclick="closeModal()">Back</button></div>`);}
 function doOffer(aid,bid){const a=S.apps.find(x=>x.id===aid);a.offer=bid;a.state='offered';logAct(`${a.name} — offered ${batchById(bid).name}`,'Matches their preference');save();closeModal();render();toast('Offer sent — they confirm, then you enrol');}
 function enrol(id){const a=S.apps.find(x=>x.id===id);const bs=fitBatches(a);
+ if(a.publicSubmission&&!['accepted','offered','waitlisted'].includes(a.state)){toast('Accept this application before enrolment.');return;}
  modal(`<h3>Enrol ${esc(a.name)}</h3><p class="muted">Assigning a seat creates the SETU account, sends the invite, and — for a coach — creates their own assessment in Aarambh. If the seat type is full, they join that batch's waitlist instead.</p>
  <div class="grid2"><div class="field"><label>Batch</label><select class="f" id="enb">${bs.map(b=>`<option value="${b.id}" ${a.offer===b.id?'selected':''}>${b.name} · ${fmtDate(b.start)} · ${b.seatsP-b.filledP} in person / ${b.seatsO-b.filledO} online left</option>`).join('')}</select></div>
  <div class="field"><label>Seat</label><select class="f" id="ens"><option ${a.mode==='In person'?'selected':''}>In person</option><option ${a.mode!=='In person'?'selected':''}>Online</option></select></div></div>
@@ -2209,7 +2217,7 @@ function W1(){
 }
 function w1Tog(k,v){const a=S.w1[k];const i=a.indexOf(v);i>=0?a.splice(i,1):a.push(v);save();render();}
 function w1Lang(l){const c=S.w1.langs;c[l]=((c[l]||0)+1)%3;if(!c[l])delete c[l];save();render();}
-function w1Submit(){const w=S.w1;S.apps=S.apps.filter(a=>!(a.name===w.name.trim()&&a.state==='new'));const L=Object.entries(w.langs).sort((a,b)=>b[1]-a[1]).map(([l,s])=>l+(s===2?' (P)':'')).join(', ');
+function w1Submit(){if(publicApplicationOpen&&!workspaceSession){submitPublicApplication();return;}const w=S.w1;S.apps=S.apps.filter(a=>!(a.name===w.name.trim()&&a.state==='new'));const L=Object.entries(w.langs).sort((a,b)=>b[1]-a[1]).map(([l,s])=>l+(s===2?' (P)':'')).join(', ');
  S.apps.unshift({id:'a'+Date.now(),name:w.name.trim(),city:w.city,as:w.as,mode:w.mode,pref:`${w.city} · ${w.window}`,langs:L,source:srcOf(w.src)[1],state:'new',years:w.years||'—',work:w.work,days:w.days.join(' '),tracks:w.tracks.join(', '),band:w.band,cv:w.cv});
  w.submitted=true;save();render();toast('Application sent · it lands in G2 Applications, tagged '+srcOf(w.src)[1]);}
 
@@ -2370,6 +2378,7 @@ function talkSlide(id){const d=S.pres.disc,tr=d.as==='Trainers and mentors';
 
 /* ---------------- boot ---------------- */
 load();
+initializeWorkspaceAccess();
 if(/^#[WSCGAKP]\d+$/.test(location.hash)&&META[location.hash.slice(1)]){S.ui.screen=location.hash.slice(1);if(S.pres)S.pres.on=false;S.ui.collapsed=true;}   // e.g. …html#P1 opens the presenter
 render();
 if(location.hash==='#present'||location.hash==='#talk'){S.ui.screen='P1';S.pres.track=location.hash==='#talk'?'talk':'walk';S.pres.on=true;S.pres.i=0;S.pres.applied=null;S.pres.snap={screen:'P1',stage:S.stage,firstLogin:S.firstLogin,g1:S.admin.g1tab,g2:S.admin.g2tab,g10:S.admin.g10tab,w1:S.w1.submitted};save();render();}   // …html#present starts the rig walk-through, #talk the talk for would-be coaches

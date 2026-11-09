@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#762d3b">
+  <title>Saarthi | Coach Development</title>
+  <link rel="stylesheet" href="dashboard-preview.css">
+  <script src="dashboard-preview.js" defer></script>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#home" aria-label="Saarthi home">
+        <span class="brand-mark">S</span>
+        <span>
+          <strong>Saarthi</strong>
+          <small>COACH DEVELOPMENT</small>
+        </span>
+      </a>
+
+      <p class="nav-label">YOUR SPACE</p>
+
+      <nav class="navigation" aria-label="Main navigation">
+        <a class="nav-link active" href="#home" aria-current="page">
+          <span aria-hidden="true">⌂</span> Dashboard
+        </a>
+        <a class="nav-link" href="#learning">
+          <span aria-hidden="true">▤</span> My learning
+        </a>
+        <a class="nav-link" href="#sessions">
+          <span aria-hidden="true">▦</span> Sessions
+        </a>
+        <a class="nav-link" href="#milestones">
+          <span aria-hidden="true">✧</span> Milestones
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>
+        <span>Keep moving forward</span>
+      </div>
+    </aside>
+
+    <main class="main-content" id="home">
+
+      <header class="topbar">
+        <button
+          class="menu-button"
+          id="menu-toggle"
+          type="button"
+          aria-controls="sidebar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >☰</button>
+
+        <span class="breadcrumb">My workspace / Dashboard</span>
+
+        <div class="profile-chip">
+          <span class="avatar" aria-hidden="true">C</span>
+          <span class="profile-label">Coach / Trainee</span>
+        </div>
+      </header>
+
+      <section class="welcome-section">
+        <div>
+          <p class="eyebrow">YOUR LEARNING SPACE</p>
+          <h1>Your journey, one step at a time.</h1>
+          <p class="welcome-copy">
+            Build your skills at your own pace. Every step counts.
+          </p>
+        </div>
+        <span class="welcome-symbol" aria-hidden="true">✳</span>
+      </section>
+
+      <section class="dashboard-grid" aria-label="Your dashboard">
+
+        <article class="card progress-card" id="learning">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">YOUR JOURNEY</p>
+              <h2>Learning progress</h2>
+            </div>
+            <span class="pill">Demo preview</span>
+          </div>
+
+          <div class="progress-layout">
+            <div
+              class="progress-ring"
+              role="img"
+              aria-label="Illustrative learning progress: 60 percent"
+              style="--progress: 60"
+            >
+              <div class="progress-ring-inner">
+                <strong>60%</strong>
+                <span>Complete</span>
+              </div>
+            </div>
+
+            <div class="progress-details">
+              <h3>You're making progress.</h3>
+              <p>
+                Keep building your coaching skills, one activity at a time.
+              </p>
+              <a class="text-link" href="#learning">
+                Explore learning <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <p class="demo-note">
+            Sample progress for design preview only. Not connected to real records.
+          </p>
+        </article>
+
+        <article class="card next-card">
+          <div class="section-heading">
+            <p class="eyebrow">A GOOD PLACE TO START</p>
+            <span class="step-icon" aria-hidden="true">→</span>
+          </div>
+
+          <h2>Your next step</h2>
+          <p class="next-description">
+            Continue your assigned training and pick up where you left off.
+          </p>
+
+          <a class="primary-button" href="#learning">
+            Continue learning <span aria-hidden="true">→</span>
+          </a>
+
+          <p class="demo-note">
+            Preview action only. Connect it to the existing training workflow after review.
+          </p>
+        </article>
+
+        <article class="card secondary-card" id="sessions">
+          <div class="card-icon teal-icon" aria-hidden="true">▦</div>
+          <div>
+            <p class="eyebrow">STAY PREPARED</p>
+            <h2>Upcoming sessions</h2>
+            <p>Keep your scheduled coaching commitments in view.</p>
+            <a class="text-link" href="#sessions">View sessions →</a>
+          </div>
+        </article>
+
+        <article class="card secondary-card" id="milestones">
+          <div class="card-icon gold-icon" aria-hidden="true">✧</div>
+          <div>
+            <p class="eyebrow">CELEBRATE PROGRESS</p>
+            <h2>Your milestones</h2>
+            <p>Recognize the learning steps you've completed.</p>
+            <a class="text-link" href="#milestones">View milestones →</a>
+          </div>
+        </article>
+
+      </section>
+
+      <footer class="page-footer">
+        <span>Saarthi · Coach Development</span>
+        <span>Small steps. Meaningful progress.</span>
+      </footer>
+
+    </main>
+  </div>
+</body>
+</html>

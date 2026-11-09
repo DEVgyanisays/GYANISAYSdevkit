@@ -1,4 +1,19 @@
-# Start here — Saarthi developer kit
+# Start here — working Saarthi application
+
+**Current application instructions · 25 October 2026**
+
+The working application is saved in this project's `backend/` folder. Its interface is in `backend/web/`, server code in `backend/src/`, and persistent local database in `backend/data/saarthi.sqlite`.
+
+- Double-click **Open Saarthi App.cmd** in the parent **GYANISAYS** folder. It starts the backend if needed and opens the working workspace.
+- Or open **http://127.0.0.1:4174/workspace/home** while the server is running. Sign in with your real account credentials.
+- To start manually, open a terminal in `backend/` and run `npm start` (Node.js 24+ required).
+- Run **Start Saarthi.cmd**, then use **frontend/index.html** as the real app entry point. See TEAM_TESTING.md. The old prototype is retained in ui-original for reference only.
+- The current app saves real records on the server. It is a local application, not yet a verified public production deployment. Deferred connections and incomplete workflows are listed in `backend/IMPLEMENTATION_STATUS.md` and `backend/LAUNCH_AUDIT.md`.
+- Keep the `backend/data/` directory and its outbox key; it contains the real accounts and records. The launcher reuses this data.
+
+## Original developer-kit reference
+
+The instructions below describe the original kit and its sample-data review rig. They are retained as historical developer reference; use the application instructions above to access the current working version.
 
 **kit v0.1 · 16 October 2026**
 
@@ -33,3 +48,4 @@
 
 Open questions are listed at the end of `BUILD_SPEC.md` and in `INTEGRATION_AARAMBH.md` §3 (who assigns a coach).
 Do not decide them in code.
+

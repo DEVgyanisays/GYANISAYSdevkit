@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const source=new URL('../location-source/world.json',import.meta.url);
+const bytes=fs.readFileSync(source), world=JSON.parse(bytes);
+const sort=items=>items.sort((a,b)=>a.name.localeCompare(b.name,'en'));
+const cities=rows=>sort((rows||[]).map(c=>({id:String(c.id),name:c.name})));
+const result=sort(world.map(c=>({id:c.iso2,name:c.name,states:sort(c.states.map(s=>({id:String(s.id),name:s.name,cities:cities(s.cities)}))),cities:cities(c.cities)})));
+const out=new URL('../src/locations-data/',import.meta.url);fs.mkdirSync(out,{recursive:true});
+fs.writeFileSync(new URL('world.json',out),JSON.stringify(result));
+fs.copyFileSync(new URL('../location-source/LICENSE.txt',import.meta.url),new URL('LICENSE.txt',out));
+const counts={countries:result.length,states:result.reduce((n,c)=>n+c.states.length,0),cities:result.reduce((n,c)=>n+c.cities.length+c.states.reduce((n,s)=>n+s.cities.length,0),0)};
+fs.writeFileSync(new URL('SOURCE.json',out),JSON.stringify({source:'https://github.com/dr5hn/countries-states-cities-database',license:'ODbL-1.0',retrieved:'2026-10-26',source_sha256:crypto.createHash('sha256').update(bytes).digest('hex'),transformation:'Only country ISO2, subdivision/city IDs and English names retained; sorted by name. This derived dataset is available under ODbL-1.0.',...counts},null,2));
+console.log(counts);

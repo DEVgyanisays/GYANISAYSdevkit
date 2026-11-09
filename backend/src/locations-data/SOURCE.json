@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/dr5hn/countries-states-cities-database",
+  "license": "ODbL-1.0",
+  "retrieved": "2026-10-26",
+  "source_sha256": "401f2db487336d00bbfd027b2080a4a393e8443f498ccfc675a67b52e08dd75a",
+  "transformation": "Only country ISO2, subdivision/city IDs and English names retained; sorted by name. This derived dataset is available under ODbL-1.0.",
+  "countries": 250,
+  "states": 5327,
+  "cities": 152378
+}

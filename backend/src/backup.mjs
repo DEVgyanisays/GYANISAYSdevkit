@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {DatabaseSync} from 'node:sqlite';
+import {configuration} from './server.mjs';
+const config=configuration();
+if(!fs.existsSync(config.database))throw Error('Database does not exist. Start the server and complete setup first.');
+const target=path.resolve('backups',new Date().toISOString().replaceAll(':','-').replaceAll('.','-'));
+fs.mkdirSync(target,{recursive:true,mode:0o700});
+const db=new DatabaseSync(config.database);
+db.exec("VACUUM INTO '"+path.join(target,'saarthi.sqlite').replaceAll("'","''")+"'");db.close();
+fs.copyFileSync(path.join(config.dataDir,'outbox.key'),path.join(target,'outbox.key'));
+console.log('Consistent database and encrypted-outbox key backup created: '+target);
